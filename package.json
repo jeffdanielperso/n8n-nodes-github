@@ -24,6 +24,8 @@
         "dist"
     ],
     "n8n": {
+        "credentials": [
+        ],
         "nodes": [
             "dist/nodes/GithubAction/GithubAction.node.js"
         ]
