@@ -1,6 +1,6 @@
 {
     "name": "n8n-nodes-github-action",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Github Actions for n8n",
     "license": "MIT",
     "homepage": "https://n8n.io",
