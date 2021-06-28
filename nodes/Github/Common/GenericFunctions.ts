@@ -2,8 +2,8 @@ import { OptionsWithUri } from 'request';
 import { IExecuteFunctions, IHookFunctions } from 'n8n-core';
 import { ICredentialDataDecryptedObject, IDataObject, NodeApiError } from 'n8n-workflow';
 import * as _ from 'lodash';
-import { IValueData } from './Interfaces';
 import { HttpMethod } from './HttpMethod';
+import { IValueData } from './Interfaces';
 
 export function getArrayFromNodeParameter(
   this: IHookFunctions | IExecuteFunctions,

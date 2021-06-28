@@ -1,7 +1,7 @@
 import { INodeProperties } from "n8n-workflow"
-import { IConfigurationMap } from "../../Common/Interfaces"
 import { PropertyDisplay } from "../Common/DisplayNames"
 import { Property, Resource } from "../Common/Enums"
+import { IConfigurationMap } from "../Common/Interfaces"
 
 //#region Enums
 

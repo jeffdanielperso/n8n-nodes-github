@@ -14,7 +14,7 @@
 		"strict": true,
 		"preserveConstEnums": true,
 		"declaration": true,
-		"outDir": "./dist/nodes/",
+		"outDir": "./dist/nodes/Github",
 		"target": "es2017",
 		"sourceMap": true
 	},

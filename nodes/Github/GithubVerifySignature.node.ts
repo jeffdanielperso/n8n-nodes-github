@@ -2,13 +2,13 @@ import { set } from 'lodash';
 import { createHmac } from 'crypto';
 import { IExecuteFunctions } from 'n8n-core';
 import { INodeExecutionData, INodeType, INodeTypeDescription } from 'n8n-workflow';
-import { ConfigInputs, VerifySignProperty } from './ConfigInputs';
+import { VerifySignatureConfiguration, VerifySignProperty } from './VerifySignature/VerifySignatureConfiguration';
 
 export class GithubVerifySignature implements INodeType {
   description: INodeTypeDescription = {
       displayName: 'Github Verify Signature',
       name: 'githubVerifySignature',
-      icon: 'file:githubVerifySignature.svg',
+      icon: 'file:github.svg',
       group: ['transform'],
       version: 1,
       description: 'Verify the received signature with \'secret_token\'',
@@ -18,9 +18,9 @@ export class GithubVerifySignature implements INodeType {
       },
       inputs: ['main'],
       outputs: ['main', 'main'],
-      outputNames: ['Verified signature', 'Wrong signature'],
+      outputNames: ['Verified', 'Wrong'],
       properties: [
-        ...ConfigInputs
+        ...VerifySignatureConfiguration
       ],
   };
 

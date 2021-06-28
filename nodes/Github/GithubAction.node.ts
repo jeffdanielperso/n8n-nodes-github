@@ -19,7 +19,7 @@ export class GithubAction implements INodeType {
   description: INodeTypeDescription = {
       displayName: 'Github Action',
       name: 'githubAction',
-      icon: 'file:githubAction.svg',
+      icon: 'file:github.svg',
       group: ['transform'],
       version: 1,
       description: 'Github Action',

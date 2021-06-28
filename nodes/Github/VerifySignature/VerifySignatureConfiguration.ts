@@ -45,7 +45,7 @@ const VerifySignConfig: IConfigurationMap = {
   }
 }
 
-export const ConfigInputs = [
+export const VerifySignatureConfiguration = [
   VerifySignConfig[VerifySignProperty.XHubSignature256],
   VerifySignConfig[VerifySignProperty.SecretToken],
   VerifySignConfig[VerifySignProperty.Body],
