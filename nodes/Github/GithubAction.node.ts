@@ -63,10 +63,9 @@ export class GithubAction implements INodeType {
         newItem.binary = item.binary;
       }
 
-      newItem.json['github-action'] = [
-        ...newItem.json['github-action'] as IProjectOperationMoveCard[],
-        response
-      ]
+      const actions = newItem.json['github-action'] as IProjectOperationMoveCard[] ?? [];
+      actions.push(response);
+      newItem.json['github-action'] = actions;
 
       returnData.push(newItem);
     }
