@@ -1,16 +1,16 @@
 {
-    "name": "n8n-nodes-github-action",
+    "name": "n8n-nodes-github",
     "version": "0.1.2",
-    "description": "Github Actions for n8n",
+    "description": "Github nodes for n8n",
     "license": "MIT",
     "homepage": "https://n8n.io",
     "author": {
         "name": "Jeff Daniel",
-        "email": "jeff.daniel@ziwo.io"
+        "email": "jeff.daniel.perso@gmail.com"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/jeffdanielperso/n8n-nodes-github-action.git"
+        "url": "git+https://github.com/jeffdanielperso/n8n-nodes-github.git"
     },
     "main": "index.js",
     "scripts": {
@@ -26,7 +26,8 @@
     "n8n": {
         "credentials": [],
         "nodes": [
-            "dist/nodes/GithubAction/GithubAction.node.js"
+            "dist/nodes/GithubAction/GithubAction.node.js",
+            "dist/nodes/GithubVerifySignature/GithubVerifySignature.node.js"
         ]
     },
     "devDependencies": {

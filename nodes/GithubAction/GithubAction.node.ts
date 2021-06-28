@@ -17,14 +17,14 @@ import { ConfigResource } from './Common/ConfigResource';
 
 export class GithubAction implements INodeType {
   description: INodeTypeDescription = {
-      displayName: 'GithubAction',
+      displayName: 'Github Action',
       name: 'githubAction',
       icon: 'file:githubAction.svg',
       group: ['transform'],
       version: 1,
       description: 'Github Action',
       defaults: {
-          name: 'GithubAction',
+          name: 'Github Action',
           color: '#1A82e2',
       },
       inputs: ['main'],
