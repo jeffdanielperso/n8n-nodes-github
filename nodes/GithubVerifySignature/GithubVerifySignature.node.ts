@@ -2,7 +2,7 @@ import { set } from 'lodash';
 import { createHmac } from 'crypto';
 import { IExecuteFunctions } from 'n8n-core';
 import { INodeExecutionData, INodeType, INodeTypeDescription } from 'n8n-workflow';
-import { ConfigInputs, testData, VerifySignProperty } from './ConfigInputs';
+import { ConfigInputs, VerifySignProperty } from './ConfigInputs';
 
 export class GithubVerifySignature implements INodeType {
   description: INodeTypeDescription = {
