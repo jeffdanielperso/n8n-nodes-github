@@ -11,13 +11,14 @@ export class GithubVerifySignature implements INodeType {
       icon: 'file:githubVerifySignature.svg',
       group: ['transform'],
       version: 1,
-      description: 'Check ',
+      description: 'Verify the received signature with \'secret_token\'',
       defaults: {
           name: 'Github Verify Signature',
           color: '#1A82e2',
       },
       inputs: ['main'],
       outputs: ['main', 'main'],
+      outputNames: ['Verified signature', 'Wrong signature'],
       properties: [
         ...ConfigInputs
       ],
@@ -25,7 +26,8 @@ export class GithubVerifySignature implements INodeType {
 
   async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
     const items = this.getInputData();
-		const returnData: INodeExecutionData[] = [];
+		const returnDataVerified: INodeExecutionData[] = [];
+		const returnDataWrong: INodeExecutionData[] = [];
 		const length = items.length as unknown as number;
 
 		let item: INodeExecutionData;
@@ -47,8 +49,12 @@ export class GithubVerifySignature implements INodeType {
 			set(newItem, 'json.github-verify-signature.hmac', hmac);
 			set(newItem, 'json.github-verify-signature.verified', isVerified);
 
-			returnData.push(newItem);
+      if (isVerified) {
+        returnDataVerified.push(newItem);
+      } else {
+        returnDataWrong.push(newItem);
+      }
 		}
-		return this.prepareOutputData(returnData);
+		return [returnDataVerified, returnDataWrong];
   }
 }
