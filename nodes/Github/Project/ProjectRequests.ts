@@ -32,6 +32,24 @@ export async function getUserProjects(
   return await githubRequest.call(this, credentials, HttpMethod.GET, endpoint, {});
 }
 
+export async function getProject(
+  this: IHookFunctions | IExecuteFunctions,
+  credentials: ICredentialDataDecryptedObject,
+  projectId: number,
+): Promise<any> {
+  const endpoint = `/projects/${projectId}`;
+  return await githubRequest.call(this, credentials, HttpMethod.GET, endpoint, {});
+}
+
+export async function getColumn(
+  this: IHookFunctions | IExecuteFunctions,
+  credentials: ICredentialDataDecryptedObject,
+  columnId: number
+): Promise<any> {
+  const endpoint = `/projects/columns/${columnId}`;
+  return await githubRequest.call(this, credentials, HttpMethod.GET, endpoint, {});
+}
+
 export async function getColumns(
   this: IHookFunctions | IExecuteFunctions,
   credentials: ICredentialDataDecryptedObject,

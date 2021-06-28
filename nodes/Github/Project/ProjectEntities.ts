@@ -6,6 +6,8 @@ export interface IProject {
 export interface IProjectColumn {
   ['id']: number;
   ['name']: string;
+  ['url']: string;
+  ['project_url']: string;
 }
 
 export interface IProjectCard {
