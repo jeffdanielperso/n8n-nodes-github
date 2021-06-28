@@ -1,6 +1,8 @@
+import { set } from 'lodash';
+import { createHmac } from 'crypto';
 import { IExecuteFunctions } from 'n8n-core';
 import { INodeExecutionData, INodeType, INodeTypeDescription } from 'n8n-workflow';
-import { ConfigInputs, VerifySignProperty } from './ConfigInputs';
+import { ConfigInputs, testData, VerifySignProperty } from './ConfigInputs';
 
 export class GithubVerifySignature implements INodeType {
   description: INodeTypeDescription = {
@@ -22,15 +24,31 @@ export class GithubVerifySignature implements INodeType {
   };
 
   async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-    const signature = this.getNodeParameter(VerifySignProperty.XHubSignature256, 0) as string;
-    const secretToken = this.getNodeParameter(VerifySignProperty.SecretToken, 0) as string;
-    const body = this.getNodeParameter(VerifySignProperty.Body, 0) as string;
+    const items = this.getInputData();
+		const returnData: INodeExecutionData[] = [];
+		const length = items.length as unknown as number;
 
-    console.log(JSON.stringify(signature, null, ' '));
-    console.log(JSON.stringify(secretToken, null, ' '));
-    console.log(JSON.stringify(body, null, ' '));
+		let item: INodeExecutionData;
+		for (let i = 0; i < length; i++) {
+			item = items[i];
+      const signature = this.getNodeParameter(VerifySignProperty.XHubSignature256, i);
+      const secretToken = this.getNodeParameter(VerifySignProperty.SecretToken, i) as string;
+      const body = this.getNodeParameter(VerifySignProperty.Body, i) as string;
+			const hmac = `sha256=${createHmac('SHA256', secretToken).update(body).digest('hex')}`;
+      const isVerified = hmac === signature;
 
-    let response: any;
-    return [this.helpers.returnJsonArray(response)];
+			const newItem: INodeExecutionData = {
+        json: JSON.parse(JSON.stringify(item.json))
+      }
+			if (item.binary !== undefined) {
+				newItem.binary = item.binary;
+			}
+
+			set(newItem, 'json.github-verify-signature.hmac', hmac);
+			set(newItem, 'json.github-verify-signature.verified', isVerified);
+
+			returnData.push(newItem);
+		}
+		return this.prepareOutputData(returnData);
   }
 }
