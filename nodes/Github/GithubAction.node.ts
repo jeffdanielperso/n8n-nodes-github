@@ -70,6 +70,6 @@ export class GithubAction implements INodeType {
       returnData.push(newItem);
     }
 
-    return [this.helpers.returnJsonArray(returnData)];
+    return this.prepareOutputData(returnData);
   }
 }
