@@ -2,20 +2,14 @@ import { IHookFunctions, IExecuteFunctions } from 'n8n-core';
 import { ICredentialDataDecryptedObject } from 'n8n-workflow';
 import { findProject, moveOrCreateIssueCardInColumn } from './ProjectActions';
 import { ProjectProperty, ProjectPropertyDisplay, ProjectType } from './ProjectConfiguration';
-
-export interface IProjectOperationMoveCard {
-  "type": string;
-  "project": string;
-  "columnId": number;
-  "response": object;
-}
+import { IProjectOperationMoveCardResponse } from './ProjectResponse';
 
 export async function operationMoveCard(
   this: IHookFunctions | IExecuteFunctions,
   credentials: ICredentialDataDecryptedObject,
   projectType: ProjectType,
   projectName: string
-): Promise<IProjectOperationMoveCard | undefined> {
+): Promise<IProjectOperationMoveCardResponse | undefined> {
   const matchingProject = await findProject.call(this, credentials, projectType, projectName);
   if (matchingProject) {
     const issueNumber = this.getNodeParameter(ProjectProperty.IssueNumber, 0) as number;
@@ -30,7 +24,7 @@ export async function operationMoveCard(
       destinationColumnId
     );
 
-    const result: IProjectOperationMoveCard = {
+    const result: IProjectOperationMoveCardResponse = {
       "type": ProjectPropertyDisplay.OperationMoveCard,
       "project": matchingProject.name,
       "columnId": destinationColumnId,

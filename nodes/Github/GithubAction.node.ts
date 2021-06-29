@@ -14,7 +14,7 @@ import { orchestrateIssueOperation } from './Issue/IssueOrchestrator';
 import { ProjectConfiguration } from './Project/ProjectConfiguration';
 import { orchestrateProjectOperation } from './Project/ProjectOrchestrator';
 import { ConfigResource } from './Common/ConfigResource';
-import { IProjectOperationMoveCard } from './Project/ProjectOperations';
+import { getOrCreateArrayAndPush } from './Common/GenericFunctions';
 
 export class GithubAction implements INodeType {
   description: INodeTypeDescription = {
@@ -63,9 +63,9 @@ export class GithubAction implements INodeType {
         newItem.binary = item.binary;
       }
 
-      const actions = newItem.json['github-action'] as IProjectOperationMoveCard[] ?? [];
-      actions.push(response);
-      newItem.json['github-action'] = actions;
+      newItem.json['github-action'] = getOrCreateArrayAndPush(
+        newItem.json['github-action'] as [],
+        response);
 
       returnData.push(newItem);
     }

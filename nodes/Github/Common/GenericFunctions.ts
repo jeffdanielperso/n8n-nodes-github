@@ -5,6 +5,15 @@ import * as _ from 'lodash';
 import { HttpMethod } from './HttpMethod';
 import { IValueData } from './Interfaces';
 
+export function getOrCreateArrayAndPush<T>(
+  item: T[] | undefined,
+  value: T
+): T[] {
+  const array = item ?? [];
+  array.push(value);
+  return array;
+}
+
 export function getArrayFromNodeParameter(
   this: IHookFunctions | IExecuteFunctions,
   parameterName: string,
