@@ -1,6 +1,6 @@
 {
     "name": "n8n-nodes-github",
-    "version": "0.1.17",
+    "version": "0.1.18",
     "description": "Github nodes for n8n",
     "license": "MIT",
     "homepage": "https://n8n.io",
