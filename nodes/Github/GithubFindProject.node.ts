@@ -1,6 +1,4 @@
-import {
-  IExecuteFunctions
-} from 'n8n-core';
+import { IExecuteFunctions } from 'n8n-core';
 import {
   ICredentialDataDecryptedObject,
   INodeExecutionData,
@@ -8,27 +6,29 @@ import {
   INodeTypeDescription
 } from 'n8n-workflow';
 import { ConfigCredentials } from './Credentials/ConfigCredentials';
-import { FindProjectConfiguration, FindProjectProperty } from './FindProject/FindProjectConfiguration';
+import { FindProjectConfiguration, FindProjectNode, FindProjectProperty } from './FindProject/FindProjectConfiguration';
 import { IProject, IProjectColumn } from './Project/ProjectEntities';
 import { getColumn, getProject } from './Project/ProjectRequests';
 import * as _ from 'lodash';
-import { getOrCreateArrayAndPush } from './Common/GenericFunctions';
+import { prepareItem } from './Common/GenericFunctions';
 import { IFindProjectOperationResponse } from './FindProject/FindProjectResponse';
+import { NodeColor, NodeGroup, NodeIcon, NodeMain } from './Common/Configuration';
+import { getRegexMatchOfColumnUrl, getRegexMatchOfProjectUrl } from './ExtractData/ExtractDataActions';
 
 export class GithubFindProject implements INodeType {
   description: INodeTypeDescription = {
-      displayName: 'Github Find Project',
-      name: 'githubFindProject',
-      icon: 'file:github.svg',
-      group: ['transform'],
+      displayName: FindProjectNode.DisplayName,
+      name: FindProjectNode.Name,
+      icon: NodeIcon,
+      group: [ NodeGroup ],
       version: 1,
-      description: 'Github Find Project from Column',
+      description: FindProjectNode.Description,
       defaults: {
-          name: 'Github Find Project',
-          color: '#1A82e2',
+          name: FindProjectNode.DisplayName,
+          color: NodeColor,
       },
-      inputs: ['main'],
-      outputs: ['main'],
+      inputs: [ NodeMain ],
+      outputs: [ NodeMain ],
       credentials: ConfigCredentials,
       properties: [
         ...FindProjectConfiguration
@@ -48,24 +48,21 @@ export class GithubFindProject implements INodeType {
 
       const column = await getColumn.call(this, credentials, columnId) as IProjectColumn;
       if (column) {
-        const projectId: number = +(_.last(column.project_url.split('/')) as string);
-        const project = await getProject.call(this, credentials, projectId) as IProject;
-        if (project) {
-          const newItem: INodeExecutionData = {
-            json: JSON.parse(JSON.stringify(item.json))
+        const regexpResult = getRegexMatchOfProjectUrl(column.project_url);
+        if (regexpResult) {
+          const projectId: number = parseInt(regexpResult[1]);
+          const project = await getProject.call(this, credentials, projectId) as IProject;
+          if (project) {
+            const newItem = prepareItem<IFindProjectOperationResponse>(
+              item,
+              FindProjectNode.OutputName,
+              {
+                "id": projectId,
+                "name": project.name
+              }
+            )
+            returnData.push(newItem);
           }
-          if (item.binary !== undefined) {
-            newItem.binary = item.binary;
-          }
-          
-          newItem.json['github-find-project'] = getOrCreateArrayAndPush<IFindProjectOperationResponse>(
-            newItem.json['github-find-project'] as [],
-            {
-              "id": projectId,
-              "name": project.name
-            });
-
-          returnData.push(newItem);
         }
       }
     }
