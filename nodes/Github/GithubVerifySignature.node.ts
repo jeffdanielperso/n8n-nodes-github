@@ -35,7 +35,7 @@ export class GithubVerifySignature implements INodeType {
 		let item: INodeExecutionData;
 		for (let i = 0; i < length; i++) {
 			item = items[i];
-      const signature = this.getNodeParameter(VerifySignProperty.XHubSignature256, i);
+      const signature = this.getNodeParameter(VerifySignProperty.XHubSignature256, i) as string;
       const secretToken = this.getNodeParameter(VerifySignProperty.SecretToken, i) as string;
       const body = this.getNodeParameter(VerifySignProperty.Body, i) as string;
 			const hmac = `sha256=${createHmac('SHA256', secretToken).update(body).digest('hex')}`;

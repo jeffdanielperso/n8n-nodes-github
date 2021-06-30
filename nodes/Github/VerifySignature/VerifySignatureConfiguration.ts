@@ -1,4 +1,5 @@
 import { INodeProperties } from "n8n-workflow"
+import { NodeTypes } from "../Common/Enums"
 import { IConfigurationMap } from "../Common/Interfaces"
 
 export enum VerifySignNode {
@@ -16,19 +17,19 @@ export enum VerifySignProperty {
   Body = 'verifySignBody'
 }
 
-const VerifySignPropertyDisplay = {
-  XHubSignature256: 'Hash Signature (256)',
-  XHubSignature256Desc: 'Hash signature received as header \'X-Hub-Signature-256\' supposely from Github',
-  SecretToken: 'Secret token',
-  SecretTokenDesc: 'Secret token shared with Github',
-  Body: 'Payload/Body',
-  BodyDesc: 'Github creates a Hash Signature for each Payload/Body'
+enum VerifySignPropertyDisplay {
+  XHubSignature256 = 'Hash Signature (256)',
+  XHubSignature256Desc = 'Hash signature received as header \'X-Hub-Signature-256\' supposely from Github',
+  SecretToken = 'Secret token',
+  SecretTokenDesc = 'Secret token shared with Github',
+  Body = 'Payload/Body',
+  BodyDesc = 'Github creates a Hash Signature for each Payload/Body'
 }
 
 const VerifySignConfigElementBase: INodeProperties = {
   displayName: '',
   name: '',
-  type: 'string',
+  type: NodeTypes.String,
   default: '',
   required: true
 }
@@ -54,7 +55,7 @@ const VerifySignConfig: IConfigurationMap = {
   }
 }
 
-export const VerifySignatureConfiguration = [
+export const VerifySignatureConfiguration: INodeProperties[] = [
   VerifySignConfig[VerifySignProperty.XHubSignature256],
   VerifySignConfig[VerifySignProperty.SecretToken],
   VerifySignConfig[VerifySignProperty.Body],
