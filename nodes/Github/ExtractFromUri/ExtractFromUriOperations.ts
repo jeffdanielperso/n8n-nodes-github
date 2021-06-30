@@ -4,7 +4,7 @@ import {
   IExtractFromUriProjectResponse
 } from './ExtractFromUriResponses';
 
-const regexProjectUrl = /^https:\/\/api.github.com\/projects\/\(d+)$/
+const regexProjectUrl = /^https:\/\/api.github.com\/projects\/(\d+)$/
 const regexColumnUrl = /^https:\/\/api.github.com\/projects\/columns\/(\d+)$/
 const regexContentUrl = /^https:\/\/api.github.com\/repos\/([\w-.]+)\/([\w-.]+)\/issues\/(\d+)$/
 
