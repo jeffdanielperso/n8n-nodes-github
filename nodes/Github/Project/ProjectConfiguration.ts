@@ -1,5 +1,4 @@
-import { Property, Resource } from "../Common/Enums";
-import { PropertyDisplay } from "../Common/DisplayNames";
+import { Property, PropertyDisplay, Resource } from "../Common/Enums";
 import { INodeProperties } from "n8n-workflow";
 import { IConfigurationMap } from "../Common/Interfaces";
 

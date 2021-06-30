@@ -12,5 +12,7 @@ export interface IProjectColumn {
 
 export interface IProjectCard {
   ['id']: number;
+  ['project_url']: string;
+  ['column_url']: string;
   ['content_url']: string;
 }

@@ -1,9 +1,33 @@
 import { OptionsWithUri } from 'request';
 import { IExecuteFunctions, IHookFunctions } from 'n8n-core';
-import { ICredentialDataDecryptedObject, IDataObject, NodeApiError } from 'n8n-workflow';
+import { ICredentialDataDecryptedObject, IDataObject, INodeExecutionData, NodeApiError } from 'n8n-workflow';
 import * as _ from 'lodash';
 import { HttpMethod } from './HttpMethod';
 import { IValueData } from './Interfaces';
+
+export function copyItem(item: INodeExecutionData): INodeExecutionData {
+  const newItem: INodeExecutionData = {
+    json: JSON.parse(JSON.stringify(item.json))
+  }
+  if (item.binary !== undefined) {
+    newItem.binary = item.binary;
+  }
+
+  return newItem;
+}
+
+export function prepareItem<T>(
+  item: INodeExecutionData,
+  output: string,
+  value: T): INodeExecutionData {
+  const newItem = copyItem(item);
+
+  newItem.json[output] = getOrCreateArrayAndPush<T>(
+    newItem.json[output] as T[] | undefined,
+    value);
+
+  return newItem;
+}
 
 export function getOrCreateArrayAndPush<T>(
   item: T[] | undefined,
