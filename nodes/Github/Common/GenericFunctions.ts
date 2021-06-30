@@ -22,8 +22,8 @@ export function prepareItem<T>(
   value: T): INodeExecutionData {
   const newItem = copyItem(item);
 
-  getOrCreateArrayAndPush<T>(
-    item[output] as T[] | undefined,
+  newItem.json[output] = getOrCreateArrayAndPush<T>(
+    newItem.json[output] as T[] | undefined,
     value);
 
   return newItem;
