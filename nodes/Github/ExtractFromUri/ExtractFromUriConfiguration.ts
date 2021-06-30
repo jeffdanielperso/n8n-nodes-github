@@ -68,7 +68,7 @@ const ExtractFromUriConfig: IConfigurationMap = {
   [ExtractFromUriProperty.Operation]: {
     ...ExtractFromUriElementBase,
     displayName: PropertyDisplay.Operation,
-    name: PropertyDisplay.Operation,
+    name: ExtractFromUriProperty.Operation,
     description: PropertyDisplay.Operation,
     type: 'options',
     options: ExtractFromUriOperationOptions
