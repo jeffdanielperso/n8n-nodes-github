@@ -13,7 +13,8 @@ import { IssueConfiguration } from './Issue/IssueConfiguration';
 import { orchestrateIssueOperation } from './Issue/IssueOrchestrator';
 import { ProjectConfiguration } from './Project/ProjectConfiguration';
 import { orchestrateProjectOperation } from './Project/ProjectOrchestrator';
-import { ConfigResource } from './Common/ConfigResource';
+import { ConfigResource } from './Common/Configuration';
+import { getOrCreateArrayAndPush } from './Common/GenericFunctions';
 
 export class GithubAction implements INodeType {
   description: INodeTypeDescription = {
