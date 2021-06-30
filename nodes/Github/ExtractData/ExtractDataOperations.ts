@@ -87,8 +87,8 @@ export function operationFromProjectCard(
 
   if (projectCard) {
     const regexProjectResult = getRegexMatchOfProjectUrl(projectCard.project_url);
-    const regexColumnResult = getRegexMatchOfProjectUrl(projectCard.column_url);
-    const regexContentResult = getRegexMatchOfProjectUrl(projectCard.content_url);
+    const regexColumnResult = getRegexMatchOfColumnUrl(projectCard.column_url);
+    const regexContentResult = getRegexMatchOfContentUrl(projectCard.content_url);
 
     if (regexProjectResult && regexColumnResult && regexContentResult) {
       return {
