@@ -1,25 +1,26 @@
 import { createHmac } from 'crypto';
 import { IExecuteFunctions } from 'n8n-core';
 import { INodeExecutionData, INodeType, INodeTypeDescription } from 'n8n-workflow';
-import { VerifySignatureConfiguration, VerifySignProperty } from './VerifySignature/VerifySignatureConfiguration';
-import { getOrCreateArrayAndPush } from './Common/GenericFunctions';
+import { VerifySignatureConfiguration, VerifySignNode, VerifySignProperty } from './VerifySignature/VerifySignatureConfiguration';
+import { prepareItem } from './Common/GenericFunctions';
 import { IVerifySignatureResponse } from './VerifySignature/VerifySignatureResponse';
+import { NodeColor, NodeGroup, NodeIcon, NodeMain } from './Common/Configuration';
 
 export class GithubVerifySignature implements INodeType {
   description: INodeTypeDescription = {
-      displayName: 'Github Verify Signature',
-      name: 'githubVerifySignature',
-      icon: 'file:github.svg',
-      group: ['transform'],
+      displayName: VerifySignNode.DisplayName,
+      name: VerifySignNode.Name,
+      icon: NodeIcon,
+      group: [ NodeGroup ],
       version: 1,
-      description: 'Verify the received signature with \'secret_token\'',
+      description: VerifySignNode.Description,
       defaults: {
-          name: 'Github Verify Signature',
-          color: '#1A82e2',
+          name: VerifySignNode.DisplayName,
+          color: NodeColor,
       },
-      inputs: ['main'],
-      outputs: ['main', 'main'],
-      outputNames: ['Verified', 'Wrong'],
+      inputs: [ NodeMain ],
+      outputs: [ NodeMain, NodeMain ],
+      outputNames: [ VerifySignNode.OutputTrue, VerifySignNode.OutputFalse ],
       properties: [
         ...VerifySignatureConfiguration
       ],
@@ -40,19 +41,14 @@ export class GithubVerifySignature implements INodeType {
 			const hmac = `sha256=${createHmac('SHA256', secretToken).update(body).digest('hex')}`;
       const isVerified = hmac === signature;
 
-			const newItem: INodeExecutionData = {
-        json: JSON.parse(JSON.stringify(item.json))
-      }
-			if (item.binary !== undefined) {
-				newItem.binary = item.binary;
-			}
-
-      newItem.json['github-verify-signature'] = getOrCreateArrayAndPush<IVerifySignatureResponse>(
-        newItem.json['github-verify-signature'] as [],
+      const newItem = prepareItem<IVerifySignatureResponse>(
+        item,
+        VerifySignNode.OutputName,
         {
           "hmac": hmac,
           "verified": isVerified
-        });
+        }
+      );
 
       if (isVerified) {
         returnDataVerified.push(newItem);

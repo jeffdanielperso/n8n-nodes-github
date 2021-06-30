@@ -1,6 +1,15 @@
 import { INodeProperties } from "n8n-workflow"
 import { IConfigurationMap } from "../Common/Interfaces"
 
+export enum VerifySignNode {
+  Name = 'githubVerifySignature',
+  DisplayName = 'Github Verify Signature',
+  Description = 'Verify the received signature with \'secret_token\'',
+  OutputTrue = 'Verified',
+  OutputFalse = 'Wrong',
+  OutputName = 'github-verify-signature'
+}
+
 export enum VerifySignProperty {
   XHubSignature256 = 'verifySignSignature256',
   SecretToken = 'verifySignSecretToken',
