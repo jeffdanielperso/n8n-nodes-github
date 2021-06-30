@@ -2,11 +2,12 @@ import { IExecuteFunctions } from 'n8n-core';
 import { ICredentialDataDecryptedObject } from 'n8n-workflow';
 import { IssueOperation, IssueProperty } from './IssueConfiguration';
 import { operationAddLabels, operationRemoveLabel, operationUpdateLabels } from './IssueOperations';
+import { IIssueOperationResponse } from './IssueResponses';
 
 export async function orchestrateIssueOperation(
   this: IExecuteFunctions,
   credentials: ICredentialDataDecryptedObject
-): Promise<any> {
+): Promise<IIssueOperationResponse | undefined> {
   const operation = this.getNodeParameter(IssueProperty.Operation, 0) as IssueOperation;
   const owner = this.getNodeParameter(IssueProperty.Owner, 0) as string;
   const repository = this.getNodeParameter(IssueProperty.Repository, 0) as string;
