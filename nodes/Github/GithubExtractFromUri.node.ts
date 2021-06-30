@@ -3,7 +3,7 @@ import { INodeExecutionData, INodeType, INodeTypeDescription } from 'n8n-workflo
 import { NodeIcon } from './Common/Configuration';
 import { prepareItem } from './Common/GenericFunctions';
 import { ExtractFromUriConfiguration, ExtractFromUriNode, ExtractFromUriOperation, ExtractFromUriProperty } from './ExtractFromUri/ExtractFromUriConfiguration';
-import { operationFromProjectUrl } from './ExtractFromUri/ExtractFromUriOperations';
+import { operationFromColumnUrl, operationFromContentUrl, operationFromProjectUrl } from './ExtractFromUri/ExtractFromUriOperations';
 import { IExtractFromUriResponse } from './ExtractFromUri/ExtractFromUriResponses';
 
 export class GithubExtractFromUri implements INodeType {
@@ -40,9 +40,9 @@ export class GithubExtractFromUri implements INodeType {
       if (operation === ExtractFromUriOperation.ProjectUrl) {
         result = operationFromProjectUrl(url);
       } else if (operation === ExtractFromUriOperation.ColumnUrl) {
-        result = operationFromProjectUrl(url);
+        result = operationFromColumnUrl(url);
       } else if (operation === ExtractFromUriOperation.ContentUrl) {
-        result = operationFromProjectUrl(url);
+        result = operationFromContentUrl(url);
       }
 
       const newItem = prepareItem<IExtractFromUriResponse>(
