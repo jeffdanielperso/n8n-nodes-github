@@ -1,3 +1,17 @@
+export enum NodeTypes {
+  Boolean = 'boolean',
+  Collection = 'collection',
+  Color = 'color',
+  DateTime = 'dateTime',
+  FixedCollection = 'fixedCollection',
+  Hidden = 'hidden',
+  Json = 'json',
+  MultiOptions = 'multiOptions',
+  Number = 'number',
+  Options = 'options',
+  String = 'string'
+}
+
 export enum Property {
   Resource = 'resource'
 }

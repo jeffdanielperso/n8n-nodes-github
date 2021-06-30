@@ -1,6 +1,6 @@
 {
     "name": "n8n-nodes-github",
-    "version": "0.1.16",
+    "version": "0.1.17",
     "description": "Github nodes for n8n",
     "license": "MIT",
     "homepage": "https://n8n.io",
@@ -27,7 +27,7 @@
         "credentials": [],
         "nodes": [
             "dist/nodes/Github/GithubAction.node.js",
-            "dist/nodes/Github/GithubExtractFromUri.node.js",
+            "dist/nodes/Github/GithubExtractData.node.js",
             "dist/nodes/Github/GithubFindProject.node.js",
             "dist/nodes/Github/GithubVerifySignature.node.js"
         ]

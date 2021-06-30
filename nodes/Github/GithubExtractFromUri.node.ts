@@ -1,27 +1,26 @@
 import { IExecuteFunctions } from 'n8n-core';
 import { INodeExecutionData, INodeType, INodeTypeDescription } from 'n8n-workflow';
-import { NodeIcon } from './Common/Configuration';
+import { NodeColor, NodeGroup, NodeIcon, NodeMain } from './Common/Configuration';
 import { prepareItem } from './Common/GenericFunctions';
-import { ExtractFromUriConfiguration, ExtractFromUriNode, ExtractFromUriOperation, ExtractFromUriProperty } from './ExtractFromUri/ExtractFromUriConfiguration';
-import { operationFromColumnUrl, operationFromContentUrl, operationFromProjectUrl } from './ExtractFromUri/ExtractFromUriOperations';
-import { IExtractFromUriResponse } from './ExtractFromUri/ExtractFromUriResponses';
+import { ExtractDataConfiguration, ExtractDataNode, ExtractDataOperation, ExtractDataOperationMapping, ExtractDataProperty } from './ExtractData/ExtractDataConfiguration';
+import { IExtractDataResponse } from './ExtractData/ExtractDataResponses';
 
-export class GithubExtractFromUri implements INodeType {
+export class GithubExtractData implements INodeType {
   description: INodeTypeDescription = {
-      displayName: ExtractFromUriNode.DisplayName,
-      name: ExtractFromUriNode.Name,
+      displayName: ExtractDataNode.DisplayName,
+      name: ExtractDataNode.Name,
       icon: NodeIcon,
-      group: ['transform'],
+      group: [ NodeGroup ],
       version: 1,
-      description: ExtractFromUriNode.Description,
+      description: ExtractDataNode.Description,
       defaults: {
-          name: ExtractFromUriNode.DisplayName,
-          color: '#1A82e2',
+          name: ExtractDataNode.DisplayName,
+          color: NodeColor,
       },
-      inputs: ['main'],
-      outputs: ['main'],
+      inputs: [ NodeMain ],
+      outputs: [ NodeMain ],
       properties: [
-        ...ExtractFromUriConfiguration
+        ...ExtractDataConfiguration
       ],
   };
 
@@ -33,22 +32,12 @@ export class GithubExtractFromUri implements INodeType {
 		let item: INodeExecutionData;
 		for (let i = 0; i < length; i++) {
       item = items[i];
-      const operation = this.getNodeParameter(ExtractFromUriProperty.Operation, i) as ExtractFromUriOperation;
-      const url = this.getNodeParameter(ExtractFromUriProperty.Url, i) as string;
+      const operation = this.getNodeParameter(ExtractDataProperty.Operation, i) as ExtractDataOperation;
 
-      let result: IExtractFromUriResponse;
-      if (operation === ExtractFromUriOperation.ProjectUrl) {
-        result = operationFromProjectUrl(url);
-      } else if (operation === ExtractFromUriOperation.ColumnUrl) {
-        result = operationFromColumnUrl(url);
-      } else if (operation === ExtractFromUriOperation.ContentUrl) {
-        result = operationFromContentUrl(url);
-      }
-
-      const newItem = prepareItem<IExtractFromUriResponse>(
+      const newItem = prepareItem<IExtractDataResponse>(
         item,
-        ExtractFromUriNode.OutputName,
-        result
+        ExtractDataNode.OutputName,
+        ExtractDataOperationMapping[operation].call(this, i)
       );
 
       returnData.push(newItem);
