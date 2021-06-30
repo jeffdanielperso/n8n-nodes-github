@@ -1,8 +1,9 @@
-import { set } from 'lodash';
 import { createHmac } from 'crypto';
 import { IExecuteFunctions } from 'n8n-core';
 import { INodeExecutionData, INodeType, INodeTypeDescription } from 'n8n-workflow';
 import { VerifySignatureConfiguration, VerifySignProperty } from './VerifySignature/VerifySignatureConfiguration';
+import { getOrCreateArrayAndPush } from './Common/GenericFunctions';
+import { IVerifySignatureResponse } from './VerifySignature/VerifySignatureResponse';
 
 export class GithubVerifySignature implements INodeType {
   description: INodeTypeDescription = {
@@ -46,8 +47,12 @@ export class GithubVerifySignature implements INodeType {
 				newItem.binary = item.binary;
 			}
 
-			set(newItem, 'json.github-verify-signature.hmac', hmac);
-			set(newItem, 'json.github-verify-signature.verified', isVerified);
+      newItem.json['github-verify-signature'] = getOrCreateArrayAndPush<IVerifySignatureResponse>(
+        newItem.json['github-verify-signature'] as [],
+        {
+          "hmac": hmac,
+          "verified": isVerified
+        });
 
       if (isVerified) {
         returnDataVerified.push(newItem);

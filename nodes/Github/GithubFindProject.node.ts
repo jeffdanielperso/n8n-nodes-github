@@ -12,7 +12,8 @@ import { FindProjectConfiguration, FindProjectProperty } from './FindProject/Fin
 import { IProject, IProjectColumn } from './Project/ProjectEntities';
 import { getColumn, getProject } from './Project/ProjectRequests';
 import * as _ from 'lodash';
-import { set } from 'lodash';
+import { getOrCreateArrayAndPush } from './Common/GenericFunctions';
+import { IFindProjectOperationResponse } from './FindProject/FindProjectResponse';
 
 export class GithubFindProject implements INodeType {
   description: INodeTypeDescription = {
@@ -56,11 +57,13 @@ export class GithubFindProject implements INodeType {
           if (item.binary !== undefined) {
             newItem.binary = item.binary;
           }
-    
-          set(newItem, 'json.github-find-project.column.id', column.id);
-          set(newItem, 'json.github-find-project.column.name', column.name);
-          set(newItem, 'json.github-find-project.project.id', project.id);
-          set(newItem, 'json.github-find-project.project.name', project.name);
+          
+          newItem.json['github-find-project'] = getOrCreateArrayAndPush<IFindProjectOperationResponse>(
+            newItem.json['github-find-project'] as [],
+            {
+              "id": projectId,
+              "name": project.name
+            });
 
           returnData.push(newItem);
         }

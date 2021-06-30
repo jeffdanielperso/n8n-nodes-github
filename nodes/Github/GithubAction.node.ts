@@ -40,17 +40,36 @@ export class GithubAction implements INodeType {
 
   async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
     const items = this.getInputData();
+    const returnData: INodeExecutionData[] = [];
     const credentials = this.getCredentials('oAuth2Api') as ICredentialDataDecryptedObject;
-    const resource = this.getNodeParameter(Property.Resource, 0) as string;
-    let response: any;
+    const length = items.length as unknown as number;
 
-    if (resource === Resource.Issue) {
-      await orchestrateIssueOperation.call(this, credentials);
-    } else if (resource === Resource.Project) {
-      response = await orchestrateProjectOperation.call(this, credentials);
+		let item: INodeExecutionData;
+		for (let i = 0; i < length; i++) {
+      item = items[i];
+      const resource = this.getNodeParameter(Property.Resource, i) as string;
+
+      let response: any;
+      if (resource === Resource.Issue) {
+        response = await orchestrateIssueOperation.call(this, credentials);
+      } else if (resource === Resource.Project) {
+        response = await orchestrateProjectOperation.call(this, credentials);
+      }
+
+      const newItem: INodeExecutionData = {
+        json: JSON.parse(JSON.stringify(item.json))
+      }
+      if (item.binary !== undefined) {
+        newItem.binary = item.binary;
+      }
+
+      newItem.json['github-action'] = getOrCreateArrayAndPush(
+        newItem.json['github-action'] as [],
+        response);
+
+      returnData.push(newItem);
     }
 
-    return [this.helpers.returnJsonArray(response)];
-    //return this.prepareOutputData(items);
+    return this.prepareOutputData(returnData);
   }
 }
