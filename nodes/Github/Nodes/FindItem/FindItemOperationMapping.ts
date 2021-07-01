@@ -3,14 +3,14 @@ import { ICredentialDataDecryptedObject } from "n8n-workflow";
 import { Resource } from "../../Common/Enums";
 import { FindItemProperty } from "./FindItemEnums";
 import { operationFindProjectByColumnId, operationFindProjectByProjectId } from "./FindItemOperations";
-import { IFindItemErrorResponse, IFindItemProjectResponse } from "./FindItemResponse";
+import { IFindItemErrorResponse, IFindItemResponse } from "./FindItemResponse";
 
 interface IOperationMapping {
   [key: string]: (
     this: IHookFunctions | IExecuteFunctions,
     credentials: ICredentialDataDecryptedObject,
     itemIndex?: number
-  ) => Promise<IFindItemProjectResponse | IFindItemErrorResponse>;
+  ) => Promise<IFindItemResponse | IFindItemErrorResponse>;
 }
 
 interface IResourceOperationMapping {
