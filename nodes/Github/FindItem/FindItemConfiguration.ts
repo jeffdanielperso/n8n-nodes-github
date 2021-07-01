@@ -103,6 +103,7 @@ const FindItemConfig: IConfigurationMap = {
     displayName: FindItemPropertyDisplay.FindProject,
     name: Property.Resource,
     description: FindItemPropertyDisplay.FindProject,
+    displayOptions: {},
     type: NodeTypes.Options,
     options: FindItemResourceOptions
   },
