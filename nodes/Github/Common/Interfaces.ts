@@ -7,3 +7,7 @@ export interface IConfigurationMap {
 export interface IValueData {
 	value: any;
 }
+
+export interface IErrorResponse {
+  error: string;
+}

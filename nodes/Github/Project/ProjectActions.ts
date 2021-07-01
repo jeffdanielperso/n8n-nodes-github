@@ -37,7 +37,7 @@ export async function findUserProject(
   return response.find(project => project.name.toLocaleLowerCase() === projectName.toLocaleLowerCase());
 }
 
-export async function findProject(
+export async function FindItem(
   this: IHookFunctions | IExecuteFunctions,
   credentials: ICredentialDataDecryptedObject,
   projectType: ProjectType,

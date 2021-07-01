@@ -69,6 +69,8 @@ const ExtractDataOperationOptions: INodePropertyOptions[] = [
 
 //#endregion
 
+//#region Operation Mapping
+
 interface IOperationMapping {
   [key: string]: (this: IHookFunctions | IExecuteFunctions, itemIndex?: number) => IExtractDataResponse;
 }
@@ -79,6 +81,8 @@ export const ExtractDataOperationMapping: IOperationMapping = {
   [ExtractDataOperation.ColumnUrl]: operationFromColumnUrl,
   [ExtractDataOperation.ContentUrl]: operationFromContentUrl
 }
+
+//#endregion
 
 const ExtractDataElementBase: INodeProperties = {
   displayName: '',

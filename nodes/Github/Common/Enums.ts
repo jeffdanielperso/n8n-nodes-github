@@ -13,25 +13,32 @@ export enum NodeTypes {
 }
 
 export enum Property {
-  Resource = 'resource'
+  Resource = 'resource',
+  Operation = 'operation'
 }
 
 export enum Resource {
   Issue = 'issue',
   Project = 'project',
-  ProjectCard = 'projectCard'
+  ProjectCard = 'projectCard',
+  ProjectColumn = 'projectColumn'
 }
 
 export enum PropertyDisplay {
   Resource = 'Resource',
-  Issue = 'Issue',
-  Project = 'Project',
   Operation = 'Operation',
-  Type = 'Type',
-  Owner = 'Owner',
   Organization = 'Organization',
-  Repository = 'Repository',
+  Owner = 'Owner',
   User = 'User',
+  Repository = 'Repository',
+  Type = 'Type',
+  Issue = 'Issue',
   IssueNumber = 'Issue Number',
-  IssueId = 'Issue ID'
+  IssueId = 'Issue ID',
+  Project = 'Project',
+  ProjectId = 'Project ID',
+  ProjectColumn = 'Project Column',
+  ProjectColumnId = 'Column ID',
+  ProjectCard = 'Project Card',
+  ProjectCardId = 'Card ID',
 }

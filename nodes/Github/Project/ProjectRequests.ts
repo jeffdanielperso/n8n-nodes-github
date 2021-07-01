@@ -3,6 +3,7 @@ import { HttpMethod } from '../Common/HttpMethod';
 import { githubRequest } from '../Common/GenericFunctions';
 import { ProjectMovePosition } from './ProjectConfiguration';
 import { ICredentialDataDecryptedObject } from 'n8n-workflow';
+import { IProject, IProjectColumn } from './ProjectEntities';
 
 export async function getOrganizationProjects(
   this: IHookFunctions | IExecuteFunctions,
@@ -36,7 +37,7 @@ export async function getProject(
   this: IHookFunctions | IExecuteFunctions,
   credentials: ICredentialDataDecryptedObject,
   projectId: number,
-): Promise<any> {
+): Promise<IProject> {
   const endpoint = `/projects/${projectId}`;
   return await githubRequest.call(this, credentials, HttpMethod.GET, endpoint, {});
 }
@@ -45,7 +46,7 @@ export async function getColumn(
   this: IHookFunctions | IExecuteFunctions,
   credentials: ICredentialDataDecryptedObject,
   columnId: number
-): Promise<any> {
+): Promise<IProjectColumn> {
   const endpoint = `/projects/columns/${columnId}`;
   return await githubRequest.call(this, credentials, HttpMethod.GET, endpoint, {});
 }
