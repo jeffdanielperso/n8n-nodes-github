@@ -6,10 +6,9 @@ export enum FindItemNode {
 }
 
 export enum FindItemPropertyDisplay {
-  Operation = 'Parameter',
-  OperationDescriptipn = 'Parameter',
-  FindProject = 'Find Project',
-  FindProjectDescription = 'Project to Find',
+  ResourceDescription = 'Resource to Find',
+  OperationDescription = 'Method to Find',
+  ProjectDescription = 'Find Project',
   ByProjectId = 'By Project ID',
   ByProjectIdDescription = 'Find by Project ID',
   ByColumnId = 'By Column ID',

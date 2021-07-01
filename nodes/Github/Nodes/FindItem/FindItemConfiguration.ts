@@ -15,7 +15,7 @@ const FindItemResourceOptions: INodePropertyOptions[] = [
   {
     name: PropertyDisplay.Project,
     value: Resource.Project,
-    description: FindItemPropertyDisplay.FindProjectDescription
+    description: FindItemPropertyDisplay.ProjectDescription
   }
 ]
 
@@ -44,18 +44,18 @@ const FintItemConfigElementBase: INodeProperties = {
 const FindItemConfig: IConfigurationMap = {
   [Property.Resource]: {
     ...FintItemConfigElementBase,
-    displayName: FindItemPropertyDisplay.FindProject,
+    displayName: PropertyDisplay.Resource,
     name: Property.Resource,
-    description: FindItemPropertyDisplay.FindProject,
+    description: FindItemPropertyDisplay.ResourceDescription,
     displayOptions: {},
     type: NodeTypes.Options,
     options: FindItemResourceOptions
   },
   [Property.Operation]: {
     ...FintItemConfigElementBase,
-    displayName: FindItemPropertyDisplay.Operation,
+    displayName: PropertyDisplay.Operation,
     name: Property.Operation,
-    description: FindItemPropertyDisplay.OperationDescriptipn,
+    description: FindItemPropertyDisplay.OperationDescription,
     type: NodeTypes.Options,
     options: FindItemProjectOperationOptions
   },
