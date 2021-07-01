@@ -1,4 +1,4 @@
 export interface IVerifySignatureResponse {
-  "hmac": string;
-  "verified": boolean;
+  hmac: string;
+  verified: boolean;
 }

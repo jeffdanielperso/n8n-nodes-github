@@ -1,10 +1,11 @@
 import { createHmac } from 'crypto';
 import { IExecuteFunctions } from 'n8n-core';
 import { INodeExecutionData, INodeType, INodeTypeDescription } from 'n8n-workflow';
-import { VerifySignatureConfiguration, VerifySignNode, VerifySignProperty } from './Nodes/VerifySignature/VerifySignatureConfiguration';
+import { VerifySignatureConfiguration } from './Nodes/VerifySignature/VerifySignatureConfiguration';
 import { prepareItem } from './Common/GenericFunctions';
 import { IVerifySignatureResponse } from './Nodes/VerifySignature/VerifySignatureResponse';
 import { NodeColor, NodeGroup, NodeIcon, NodeMain } from './Common/Configuration';
+import { VerifySignNode, VerifySignProperty } from './Nodes/VerifySignature/VerifySignatureEnums';
 
 export class GithubVerifySignature implements INodeType {
   description: INodeTypeDescription = {
@@ -45,11 +46,10 @@ export class GithubVerifySignature implements INodeType {
         item,
         VerifySignNode.OutputName,
         {
-          "hmac": hmac,
-          "verified": isVerified
+          hmac: hmac,
+          verified: isVerified
         }
       );
-
       if (isVerified) {
         returnDataVerified.push(newItem);
       } else {
