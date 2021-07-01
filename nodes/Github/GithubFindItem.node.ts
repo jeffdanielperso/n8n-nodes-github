@@ -5,11 +5,16 @@ import {
   INodeType,
   INodeTypeDescription
 } from 'n8n-workflow';
+import {
+  NodeColor,
+  NodeGroup,
+  NodeIcon,
+  NodeMain
+} from './Common/Configuration';
 import { ConfigCredentials } from './Credentials/ConfigCredentials';
-import { FindItemConfiguration, FindItemNode, FindItemOperationMapping } from './FindItem/FindItemConfiguration';
+import { FindItemConfiguration, FindItemNode, FindItemOperationMapping } from './Nodes/FindItem/FindItemConfiguration';
 import { prepareItem } from './Common/GenericFunctions';
-import { NodeColor, NodeGroup, NodeIcon, NodeMain } from './Common/Configuration';
-import { IFindItemBaseResponse, IFindItemErrorResponse } from './FindItem/FindItemResponse';
+import { IFindItemProjectResponse } from './Nodes/FindItem/FindItemResponse';
 import { Property } from './Common/Enums';
 
 export class GithubFindItem implements INodeType {
@@ -44,7 +49,7 @@ export class GithubFindItem implements INodeType {
       const resource = this.getNodeParameter(Property.Resource, i) as string;
       const operation = this.getNodeParameter(Property.Operation, i) as string;
 
-      const newItem = prepareItem<IFindItemBaseResponse | IFindItemErrorResponse>(
+      const newItem = prepareItem<IFindItemProjectResponse>(
         item,
         FindItemNode.OutputName,
         await FindItemOperationMapping[resource][operation].call(this, credentials, i)

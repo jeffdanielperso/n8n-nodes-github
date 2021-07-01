@@ -1,7 +1,7 @@
 import { IExecuteFunctions, IHookFunctions } from "n8n-core";
 import { ICredentialDataDecryptedObject } from "n8n-workflow";
 import { getRegexMatchOfProjectUrl } from "../ExtractData/ExtractDataActions";
-import { getColumn, getProject } from "../Project/ProjectRequests";
+import { getColumn, getProject } from "../../Project/ProjectRequests";
 import { FindItemProperty, FindItemPropertyDisplay } from "./FindItemConfiguration";
 import { IFindItemErrorResponse, IFindItemProjectResponse, IFindItemBaseResponse } from "./FindItemResponse";
 

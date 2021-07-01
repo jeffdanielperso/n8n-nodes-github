@@ -1,7 +1,7 @@
 import { IExecuteFunctions, IHookFunctions } from "n8n-core";
 import { ICredentialDataDecryptedObject, IDisplayOptions, INodeProperties, INodePropertyOptions } from "n8n-workflow";
-import { NodeTypes, Property, PropertyDisplay, Resource } from "../Common/Enums";
-import { IConfigurationMap, IErrorResponse } from "../Common/Interfaces";
+import { NodeTypes, Property, PropertyDisplay, Resource } from "../../Common/Enums";
+import { IConfigurationMap, IErrorResponse } from "../../Common/Interfaces";
 import { operationFindProjectByColumnId, operationFindProjectByProjectId } from "./FindItemOperations";
 import { IFindItemBaseResponse, IFindItemErrorResponse } from "./FindItemResponse";
 

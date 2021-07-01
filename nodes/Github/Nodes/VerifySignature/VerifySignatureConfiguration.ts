@@ -1,6 +1,6 @@
 import { INodeProperties } from "n8n-workflow"
-import { NodeTypes } from "../Common/Enums"
-import { IConfigurationMap } from "../Common/Interfaces"
+import { NodeTypes } from "../../Common/Enums"
+import { IConfigurationMap } from "../../Common/Interfaces"
 
 export enum VerifySignNode {
   Name = 'githubVerifySignature',

@@ -3,7 +3,7 @@ import { IExecuteFunctions, IHookFunctions } from 'n8n-core';
 import { ICredentialDataDecryptedObject, IDataObject, INodeExecutionData, NodeApiError } from 'n8n-workflow';
 import * as _ from 'lodash';
 import { HttpMethod } from './HttpMethod';
-import { IValueData } from './Interfaces';
+import { IErrorResponse, IValueData } from './Interfaces';
 
 export function copyItem(item: INodeExecutionData): INodeExecutionData {
   const newItem: INodeExecutionData = {
@@ -16,6 +16,15 @@ export function copyItem(item: INodeExecutionData): INodeExecutionData {
   return newItem;
 }
 
+export function prepareErrorResult<TInput, TOutput extends TInput | IErrorResponse>(
+  resultBase: TInput,
+  error: string
+): TOutput {
+  return {
+    ...resultBase,
+    error: error
+  } as TOutput
+}
 export function prepareItem<T>(
   item: INodeExecutionData,
   output: string,

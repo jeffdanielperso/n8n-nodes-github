@@ -1,9 +1,9 @@
 import { createHmac } from 'crypto';
 import { IExecuteFunctions } from 'n8n-core';
 import { INodeExecutionData, INodeType, INodeTypeDescription } from 'n8n-workflow';
-import { VerifySignatureConfiguration, VerifySignNode, VerifySignProperty } from './VerifySignature/VerifySignatureConfiguration';
+import { VerifySignatureConfiguration, VerifySignNode, VerifySignProperty } from './Nodes/VerifySignature/VerifySignatureConfiguration';
 import { prepareItem } from './Common/GenericFunctions';
-import { IVerifySignatureResponse } from './VerifySignature/VerifySignatureResponse';
+import { IVerifySignatureResponse } from './Nodes/VerifySignature/VerifySignatureResponse';
 import { NodeColor, NodeGroup, NodeIcon, NodeMain } from './Common/Configuration';
 
 export class GithubVerifySignature implements INodeType {
