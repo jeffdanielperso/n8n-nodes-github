@@ -14,7 +14,8 @@ export enum NodeTypes {
 
 export enum Property {
   Resource = 'resource',
-  Operation = 'operation'
+  Operation = 'operation',
+  Parameter = 'parameter'
 }
 
 export enum Resource {

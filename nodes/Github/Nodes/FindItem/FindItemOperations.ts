@@ -2,30 +2,24 @@ import { IExecuteFunctions, IHookFunctions } from "n8n-core";
 import { ICredentialDataDecryptedObject } from "n8n-workflow";
 import { getRegexMatchOfProjectUrl } from "../ExtractData/ExtractDataActions";
 import { getColumn, getProject } from "../../Project/ProjectRequests";
-import { FindItemProperty, FindItemPropertyDisplay } from "./FindItemConfiguration";
-import { IFindItemErrorResponse, IFindItemProjectResponse, IFindItemBaseResponse } from "./FindItemResponse";
+import { IFindItemErrorResponse, IFindItemProjectResponse, IFindItemResponse } from "./FindItemResponse";
+import { FindItemProperty, FindItemPropertyDisplay } from "./FindItemEnums";
+import { prepareErrorResult } from "../../Common/GenericFunctions";
 
 const ErrorGettingProjectId = 'Could not retrieve Project ID';
 const ErrorGettingProject = 'Could not retrieve the Project';
 const ErrorGettingColumnId = 'Could not retrieve Column ID';
 const ErrorGettingColumn = 'Could not retrieve the Column';
 
-function prepareErrorResult(resultBase: IFindItemBaseResponse, error: string): IFindItemErrorResponse {
-  return {
-    ...resultBase,
-    error: error
-  }
-}
-
 export async function operationFindProjectByProjectId(
   this: IHookFunctions | IExecuteFunctions,
   credentials: ICredentialDataDecryptedObject,
   itemIndex: number = 0
-): Promise<IFindItemProjectResponse | IFindItemErrorResponse> {
-  const resultBase: IFindItemBaseResponse = {
+): Promise<IFindItemResponse> {
+  const resultBase: IFindItemResponse = {
     operation: FindItemPropertyDisplay.FindProject,
     parameter: FindItemPropertyDisplay.ByProjectId
-  }
+  };
 
   const projectId = this.getNodeParameter(FindItemProperty.ProjectId, itemIndex) as number;
   if (projectId) {
@@ -46,7 +40,7 @@ export async function operationFindProjectByColumnId(
   credentials: ICredentialDataDecryptedObject,
   itemIndex: number = 0
 ): Promise<IFindItemProjectResponse | IFindItemErrorResponse> {
-  const resultBase: IFindItemBaseResponse = {
+  const resultBase: IFindItemResponse = {
     operation: FindItemPropertyDisplay.FindProject,
     parameter: FindItemPropertyDisplay.ByColumnId
   }

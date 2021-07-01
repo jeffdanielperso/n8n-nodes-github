@@ -16,14 +16,14 @@ export function copyItem(item: INodeExecutionData): INodeExecutionData {
   return newItem;
 }
 
-export function prepareErrorResult<TInput, TOutput extends TInput | IErrorResponse>(
-  resultBase: TInput,
+export function prepareErrorResult<T>(
+  resultBase: any,
   error: string
-): TOutput {
+): T {
   return {
     ...resultBase,
     error: error
-  } as TOutput
+  } as T
 }
 export function prepareItem<T>(
   item: INodeExecutionData,

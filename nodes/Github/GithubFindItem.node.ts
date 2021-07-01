@@ -12,10 +12,12 @@ import {
   NodeMain
 } from './Common/Configuration';
 import { ConfigCredentials } from './Credentials/ConfigCredentials';
-import { FindItemConfiguration, FindItemNode, FindItemOperationMapping } from './Nodes/FindItem/FindItemConfiguration';
+import { FindItemConfiguration } from './Nodes/FindItem/FindItemConfiguration';
 import { prepareItem } from './Common/GenericFunctions';
-import { IFindItemProjectResponse } from './Nodes/FindItem/FindItemResponse';
+import { IFindItemResponse } from './Nodes/FindItem/FindItemResponse';
 import { Property } from './Common/Enums';
+import { FindItemNode } from './Nodes/FindItem/FindItemEnums';
+import { FindItemOperationMapping } from './Nodes/FindItem/FindItemOperationMapping';
 
 export class GithubFindItem implements INodeType {
   description: INodeTypeDescription = {
@@ -49,7 +51,7 @@ export class GithubFindItem implements INodeType {
       const resource = this.getNodeParameter(Property.Resource, i) as string;
       const operation = this.getNodeParameter(Property.Operation, i) as string;
 
-      const newItem = prepareItem<IFindItemProjectResponse>(
+      const newItem = prepareItem<IFindItemResponse>(
         item,
         FindItemNode.OutputName,
         await FindItemOperationMapping[resource][operation].call(this, credentials, i)
