@@ -22,9 +22,7 @@ export class GithubVerifySignature implements INodeType {
       inputs: [ NodeMain ],
       outputs: [ NodeMain, NodeMain ],
       outputNames: [ VerifySignNode.OutputTrue, VerifySignNode.OutputFalse ],
-      properties: [
-        ...VerifySignatureConfiguration
-      ],
+      properties: VerifySignatureConfiguration
   };
 
   async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {

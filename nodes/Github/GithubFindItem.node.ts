@@ -11,7 +11,7 @@ import {
   NodeIcon,
   NodeMain
 } from './Common/Configuration';
-import { ConfigCredentials } from './Credentials/ConfigCredentials';
+import { CredentialsConfiguration } from './Credentials/CredentialsConfiguration';
 import { FindItemConfiguration } from './Nodes/FindItem/FindItemConfiguration';
 import { prepareItem } from './Common/GenericFunctions';
 import { IFindItemResponse } from './Nodes/FindItem/FindItemResponse';
@@ -33,10 +33,8 @@ export class GithubFindItem implements INodeType {
       },
       inputs: [ NodeMain ],
       outputs: [ NodeMain ],
-      credentials: ConfigCredentials,
-      properties: [
-        ...FindItemConfiguration
-      ],
+      credentials: CredentialsConfiguration,
+      properties: FindItemConfiguration
   };
 
   async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {

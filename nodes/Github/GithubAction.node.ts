@@ -7,7 +7,7 @@ import {
   INodeType,
   INodeTypeDescription
 } from 'n8n-workflow';
-import { ConfigCredentials } from './Credentials/ConfigCredentials';
+import { CredentialsConfiguration } from './Credentials/CredentialsConfiguration';
 import { NodeColor, NodeGroup, NodeIcon, NodeMain } from './Common/Configuration';
 import { ActionConfiguration } from './Nodes/Action/ActionConfiguration';
 import { IActionIssueResponse } from './Nodes/Action/ActionResponses.issue';
@@ -30,7 +30,7 @@ export class GithubAction implements INodeType {
       },
       inputs: [ NodeMain ],
       outputs: [ NodeMain ],
-      credentials: ConfigCredentials,
+      credentials: CredentialsConfiguration,
       properties: ActionConfiguration
   };
 
@@ -51,7 +51,6 @@ export class GithubAction implements INodeType {
 
       returnData.push(newItem);
     }
-
     return this.prepareOutputData(returnData);
   }
 }

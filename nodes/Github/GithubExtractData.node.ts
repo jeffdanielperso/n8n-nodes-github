@@ -22,9 +22,7 @@ export class GithubExtractData implements INodeType {
       },
       inputs: [ NodeMain ],
       outputs: [ NodeMain ],
-      properties: [
-        ...ExtractDataConfiguration
-      ],
+      properties: ExtractDataConfiguration
   };
 
   async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
