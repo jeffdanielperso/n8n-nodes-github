@@ -1,10 +1,19 @@
 import { IHookFunctions, IExecuteFunctions } from 'n8n-core';
 import { ICredentialDataDecryptedObject } from 'n8n-workflow';
+import { ProjectMovePosition, ProjectType, YesNo } from '../Common/Enums';
 import { IIssue } from '../Issue/IssueEntities';
 import { getIssue } from '../Issue/IssueRequests';
-import { ProjectKnownIssueId, ProjectMovePosition, ProjectProperty, ProjectType } from './ProjectConfiguration';
+import { ActionProjectProperty } from '../Nodes/Action/ActionEnums';
 import { IProject, IProjectCard, IProjectColumn } from './ProjectEntities';
-import { createCard, getCardsOfColumn, getColumns, getOrganizationProjects, getRepositoryProjects, getUserProjects, moveCard } from './ProjectRequests';
+import {
+  createCard,
+  getCardsOfColumn,
+  getColumns,
+  getOrganizationProjects,
+  getRepositoryProjects,
+  getUserProjects,
+  moveCard
+} from './ProjectRequests';
 
 export async function findOrganizationalProject(
   this: IHookFunctions | IExecuteFunctions,
@@ -44,14 +53,14 @@ export async function FindItem(
   projectName: string
 ): Promise<IProject | undefined> {
   if (projectType === ProjectType.Organization) {
-    const owner = this.getNodeParameter(ProjectProperty.Owner, 0) as string;
+    const owner = this.getNodeParameter(ActionProjectProperty.Owner, 0) as string;
     return await findOrganizationalProject.call(this, credentials, owner, projectName) as IProject;
   } else if (projectType === ProjectType.Repository) {
-    const owner = this.getNodeParameter(ProjectProperty.Owner, 0) as string;
-    const repository = this.getNodeParameter(ProjectProperty.Repository, 0) as string;
+    const owner = this.getNodeParameter(ActionProjectProperty.Owner, 0) as string;
+    const repository = this.getNodeParameter(ActionProjectProperty.Repository, 0) as string;
     return await findRepositoryProject.call(this, credentials, owner, repository, projectName) as IProject;
   } else if (projectType === ProjectType.User) {
-    const user = this.getNodeParameter(ProjectProperty.Owner, 0) as string;
+    const user = this.getNodeParameter(ActionProjectProperty.Owner, 0) as string;
     return await findUserProject.call(this, credentials, user, projectName) as IProject;
   }
 
@@ -103,18 +112,18 @@ export async function moveOrCreateIssueCardInColumn(
   if (matchingCard) {
     return await moveCard.call(this, credentials, matchingCard.id, columnId, movePosition);
   } else {
-    const owner = this.getNodeParameter(ProjectProperty.Owner, 0) as string;
-    const knownIssueId = this.getNodeParameter(ProjectProperty.KnownIssueId, 0) as ProjectKnownIssueId;
+    const owner = this.getNodeParameter(ActionProjectProperty.Owner, 0) as string;
+    const knownIssueId = this.getNodeParameter(ActionProjectProperty.KnownIssueId, 0) as YesNo;
     let issueId: number | undefined;
 
-    if (knownIssueId === ProjectKnownIssueId.Yes) {
-      issueId = this.getNodeParameter(ProjectProperty.IssueId, 0) as number;
-    } else if (knownIssueId === ProjectKnownIssueId.No) {
+    if (knownIssueId === YesNo.Yes) {
+      issueId = this.getNodeParameter(ActionProjectProperty.IssueId, 0) as number;
+    } else if (knownIssueId === YesNo.No) {
       let repository: string;
       if (projectType === ProjectType.Repository) {
-        repository = this.getNodeParameter(ProjectProperty.Repository, 0) as string;
+        repository = this.getNodeParameter(ActionProjectProperty.Repository, 0) as string;
       } else {
-        repository = this.getNodeParameter(ProjectProperty.IssueRepository, 0) as string;
+        repository = this.getNodeParameter(ActionProjectProperty.IssueRepository, 0) as string;
       }
 
       const issue = await getIssue.call(this, credentials, owner, repository, issueNumber) as IIssue;

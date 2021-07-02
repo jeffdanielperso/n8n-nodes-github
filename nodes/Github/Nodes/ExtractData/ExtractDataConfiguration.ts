@@ -76,7 +76,7 @@ const ExtractDataConfig: IConfigurationMap = {
   }
 }
 
-export const ExtractDataConfiguration = [
+export const ExtractDataConfiguration: INodeProperties[] = [
   ExtractDataConfig[Property.Operation],
   ExtractDataConfig[ExtractDataProperty.Object],
   ExtractDataConfig[ExtractDataProperty.Url]

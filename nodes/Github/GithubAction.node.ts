@@ -7,35 +7,31 @@ import {
   INodeType,
   INodeTypeDescription
 } from 'n8n-workflow';
-import { Property, Resource } from './Common/Enums';
 import { ConfigCredentials } from './Credentials/ConfigCredentials';
-import { IssueConfiguration } from './Issue/IssueConfiguration';
-import { orchestrateIssueOperation } from './Issue/IssueOrchestrator';
-import { ProjectConfiguration } from './Project/ProjectConfiguration';
-import { orchestrateProjectOperation } from './Project/ProjectOrchestrator';
-import { ConfigResource } from './Common/Configuration';
-import { getOrCreateArrayAndPush } from './Common/GenericFunctions';
+import { NodeColor, NodeGroup, NodeIcon, NodeMain } from './Common/Configuration';
+import { ActionConfiguration } from './Nodes/Action/ActionConfiguration';
+import { IActionIssueResponse } from './Nodes/Action/ActionResponses.issue';
+import { IActionProjectResponse } from './Nodes/Action/ActionResponses.project';
+import { actionOrchestration } from './Nodes/Action/ActionOrchestration';
+import { ActionNode } from './Nodes/Action/ActionEnums';
+import { prepareItem } from './Common/GenericFunctions';
 
 export class GithubAction implements INodeType {
   description: INodeTypeDescription = {
-      displayName: 'Github Action',
-      name: 'githubAction',
-      icon: 'file:github.svg',
-      group: ['transform'],
+      displayName: ActionNode.DisplayName,
+      name: ActionNode.Name,
+      icon: NodeIcon,
+      group: [ NodeGroup ],
       version: 1,
-      description: 'Github Action',
+      description: ActionNode.DisplayName,
       defaults: {
-          name: 'Github Action',
-          color: '#1A82e2',
+          name: ActionNode.DisplayName,
+          color: NodeColor,
       },
-      inputs: ['main'],
-      outputs: ['main'],
+      inputs: [ NodeMain ],
+      outputs: [ NodeMain ],
       credentials: ConfigCredentials,
-      properties: [
-        ConfigResource,
-        ...IssueConfiguration,
-        ...ProjectConfiguration,
-      ],
+      properties: ActionConfiguration
   };
 
   async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
@@ -47,24 +43,10 @@ export class GithubAction implements INodeType {
 		let item: INodeExecutionData;
 		for (let i = 0; i < length; i++) {
       item = items[i];
-      const resource = this.getNodeParameter(Property.Resource, i) as string;
-
-      let response: any;
-      if (resource === Resource.Issue) {
-        response = await orchestrateIssueOperation.call(this, credentials);
-      } else if (resource === Resource.Project) {
-        response = await orchestrateProjectOperation.call(this, credentials);
-      }
-
-      const newItem: INodeExecutionData = {
-        json: JSON.parse(JSON.stringify(item.json))
-      }
-      if (item.binary !== undefined) {
-        newItem.binary = item.binary;
-      }
-
-      newItem.json['github-action'] = getOrCreateArrayAndPush(
-        newItem.json['github-action'] as [],
+      const response = await actionOrchestration.call(this, credentials, i);
+      const newItem = prepareItem<IActionIssueResponse | IActionProjectResponse>(
+        item,
+        ActionNode.OutputName, 
         response);
 
       returnData.push(newItem);

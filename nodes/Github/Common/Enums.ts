@@ -14,8 +14,7 @@ export enum NodeTypes {
 
 export enum Property {
   Resource = 'resource',
-  Operation = 'operation',
-  Parameter = 'parameter'
+  Operation = 'operation'
 }
 
 export enum Resource {
@@ -42,4 +41,24 @@ export enum PropertyDisplay {
   ProjectColumnId = 'Column ID',
   ProjectCard = 'Project Card',
   ProjectCardId = 'Card ID',
+  Name = 'Name',
+  Labels = 'Labels',
+  Yes = 'Yes',
+  No = 'No'
+}
+
+export enum ProjectType {
+  Organization = 'organization',
+  Repository = 'repository',
+  User = 'user'
+}
+
+export enum ProjectMovePosition {
+  Top = 'top',
+  Bottom = 'bottom'
+}
+
+export enum YesNo {
+  Yes = 'yes',
+  No = 'no'
 }

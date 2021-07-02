@@ -3,8 +3,8 @@ import { IErrorResponse } from "../../Common/Interfaces";
 import { IProject } from "../../Project/ProjectEntities";
 
 interface IFindItemBaseResponse {
-  [Property.Operation]: string,
-  [Property.Parameter]: string
+  [Property.Resource]: string,
+  [Property.Operation]: string
 }
 
 export interface IFindItemErrorResponse extends IFindItemBaseResponse, IErrorResponse { }

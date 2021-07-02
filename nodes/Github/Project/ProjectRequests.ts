@@ -1,9 +1,9 @@
 import { IExecuteFunctions, IHookFunctions } from 'n8n-core';
 import { HttpMethod } from '../Common/HttpMethod';
 import { githubRequest } from '../Common/GenericFunctions';
-import { ProjectMovePosition } from './ProjectConfiguration';
 import { ICredentialDataDecryptedObject } from 'n8n-workflow';
 import { IProject, IProjectColumn } from './ProjectEntities';
+import { ProjectMovePosition } from '../Common/Enums';
 
 export async function getOrganizationProjects(
   this: IHookFunctions | IExecuteFunctions,

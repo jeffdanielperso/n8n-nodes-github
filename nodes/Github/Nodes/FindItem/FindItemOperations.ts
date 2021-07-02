@@ -5,6 +5,7 @@ import { getColumn, getProject } from "../../Project/ProjectRequests";
 import { IFindItemErrorResponse, IFindItemProjectResponse, IFindItemResponse } from "./FindItemResponse";
 import { FindItemProperty, FindItemPropertyDisplay } from "./FindItemEnums";
 import { prepareErrorResult } from "../../Common/GenericFunctions";
+import { Property } from "../../Common/Enums";
 
 const ErrorGettingProjectId = 'Could not retrieve Project ID';
 const ErrorGettingProject = 'Could not retrieve the Project';
@@ -17,8 +18,8 @@ export async function operationFindProjectByProjectId(
   itemIndex: number = 0
 ): Promise<IFindItemResponse> {
   const resultBase: IFindItemResponse = {
-    operation: FindItemPropertyDisplay.FindProject,
-    parameter: FindItemPropertyDisplay.ByProjectId
+    [Property.Resource]: FindItemPropertyDisplay.ProjectDescription,
+    [Property.Operation]: FindItemPropertyDisplay.ByProjectId
   };
 
   const projectId = this.getNodeParameter(FindItemProperty.ProjectId, itemIndex) as number;
@@ -41,9 +42,9 @@ export async function operationFindProjectByColumnId(
   itemIndex: number = 0
 ): Promise<IFindItemProjectResponse | IFindItemErrorResponse> {
   const resultBase: IFindItemResponse = {
-    operation: FindItemPropertyDisplay.FindProject,
-    parameter: FindItemPropertyDisplay.ByColumnId
-  }
+    [Property.Resource]: FindItemPropertyDisplay.ProjectDescription,
+    [Property.Operation]: FindItemPropertyDisplay.ByColumnId
+  };
   const columnId = this.getNodeParameter(FindItemProperty.ColumnId, itemIndex) as number;
   if (columnId) {
     const column = await getColumn.call(this, credentials, columnId);
