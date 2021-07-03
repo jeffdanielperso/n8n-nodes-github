@@ -2,7 +2,6 @@ import { IDisplayOptions, INodeProperties, INodePropertyCollection, INodePropert
 import { YesNoOptions } from "../../Common/Configuration";
 import { NodeTypes, ProjectType, Property, PropertyDisplay, Resource, YesNo } from "../../Common/Enums";
 import { IConfigurationMap } from "../../Common/Interfaces";
-import { ActionElementBase } from "./ActionConfiguration";
 import { ActionProjectOperation, ActionProjectProperty, ActionProjectPropertyDisplay, ActionPropertyDisplay } from "./ActionEnums";
 
 const ActionProjectTypeOptions: INodePropertyOptions[] = [
@@ -47,8 +46,11 @@ export const ActionProjectOperationOptions: Array<INodePropertyOptions | INodePr
 ]
 
 const ActionProjectElementBase: INodeProperties = {
-  ...ActionElementBase,
+  displayName: '',
+  name: '',
   type: NodeTypes.String,
+  default: '',
+  required: true,
   displayOptions: ActionProjectDisplayOptions
 }
 

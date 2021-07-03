@@ -2,7 +2,6 @@ import { IDisplayOptions, INodeProperties, INodePropertyCollection, INodePropert
 import { CollectionNodeItemName, CollectionNodeItemType, CollectionNodeName } from "../../Common/Configuration";
 import { NodeTypes, Property, PropertyDisplay, Resource } from "../../Common/Enums";
 import { IConfigurationMap } from "../../Common/Interfaces";
-import { ActionElementBase } from "./ActionConfiguration";
 import { ActionIssueOperation, ActionIssueProperty, ActionIssuePropertyDisplay, ActionPropertyDisplay } from "./ActionEnums";
 
 const ActionLabelCollectionOptions: INodePropertyCollection[] = [
@@ -55,8 +54,11 @@ export const ActionIssueOperationOptions: Array<INodePropertyOptions | INodeProp
 ]
 
 const ActionIssueElementBase: INodeProperties = {
-  ...ActionElementBase,
+  displayName: '',
+  name: '',
   type: NodeTypes.String,
+  default: '',
+  required: true,
   displayOptions: ActionIssueDisplayOptions
 }
 
