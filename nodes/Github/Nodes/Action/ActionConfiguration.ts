@@ -8,8 +8,6 @@ import { IConfigurationMap } from "../../Common/Interfaces";
 import { ActionIssueConfiguration, ActionIssueOperationOptions } from "./ActionConfiguration.issue";
 import { ActionProjectConfiguration, ActionProjectOperationOptions } from "./ActionConfiguration.project";
 import { ActionPropertyDisplay } from "./ActionEnums";
-import { ActionIssueOperationMapping } from "./ActionOperationMapping.issue";
-import { ActionProjectOperationMapping } from "./ActionOperationMapping.project";
 
 const ActionResourceOptions: INodePropertyOptions[] = [
   {
