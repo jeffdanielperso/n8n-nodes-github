@@ -49,6 +49,7 @@ export const ActionProjectOperationOptions: Array<INodePropertyOptions | INodePr
 
 const ActionProjectElementBase: INodeProperties = {
   ...ActionElementBase,
+  type: NodeTypes.String,
   displayOptions: ActionProjectDisplayOptions
 }
 

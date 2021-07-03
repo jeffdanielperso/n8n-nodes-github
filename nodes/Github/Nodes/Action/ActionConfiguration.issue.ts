@@ -59,6 +59,7 @@ export const ActionIssueOperationOptions: Array<INodePropertyOptions | INodeProp
 
 const ActionIssueElementBase: INodeProperties = {
   ...ActionElementBase,
+  type: NodeTypes.String,
   displayOptions: ActionIssueDisplayOptions
 }
 
