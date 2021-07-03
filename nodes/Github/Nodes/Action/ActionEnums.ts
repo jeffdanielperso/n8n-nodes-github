@@ -30,6 +30,7 @@ export enum ActionIssuePropertyDisplay {
 }
 
 export enum ActionIssueProperty {
+  Operation = 'action_issue_operation',
   Owner = 'action_issue_owner',
   Repository = 'action_issue_repository',
   IssueNumber = 'action_issue_issueNumber',
@@ -66,6 +67,7 @@ export enum ActionProjectPropertyDisplay {
 }
 
 export enum ActionProjectProperty {
+  Operation = 'action_project_operation',
   Type = 'action_project_type',
   Owner = 'action_project_owner',
   Repository = 'action_project_repository',

@@ -106,24 +106,25 @@ export async function moveOrCreateIssueCardInColumn(
   projectType: ProjectType,
   issueNumber: number,
   columnId: number,
-  movePosition: ProjectMovePosition = ProjectMovePosition.Bottom
+  movePosition: ProjectMovePosition = ProjectMovePosition.Bottom,
+  itemIndex: number = 0
 ): Promise<any> {
   const matchingCard = await findIssueCardinProject.call(this, credentials, projectId, issueNumber);
   if (matchingCard) {
     return await moveCard.call(this, credentials, matchingCard.id, columnId, movePosition);
   } else {
-    const owner = this.getNodeParameter(ActionProjectProperty.Owner, 0) as string;
-    const knownIssueId = this.getNodeParameter(ActionProjectProperty.KnownIssueId, 0) as YesNo;
+    const owner = this.getNodeParameter(ActionProjectProperty.Owner, itemIndex) as string;
+    const knownIssueId = this.getNodeParameter(ActionProjectProperty.KnownIssueId, itemIndex) as YesNo;
     let issueId: number | undefined;
 
     if (knownIssueId === YesNo.Yes) {
-      issueId = this.getNodeParameter(ActionProjectProperty.IssueId, 0) as number;
+      issueId = this.getNodeParameter(ActionProjectProperty.IssueId, itemIndex) as number;
     } else if (knownIssueId === YesNo.No) {
       let repository: string;
       if (projectType === ProjectType.Repository) {
-        repository = this.getNodeParameter(ActionProjectProperty.Repository, 0) as string;
+        repository = this.getNodeParameter(ActionProjectProperty.Repository, itemIndex) as string;
       } else {
-        repository = this.getNodeParameter(ActionProjectProperty.IssueRepository, 0) as string;
+        repository = this.getNodeParameter(ActionProjectProperty.IssueRepository, itemIndex) as string;
       }
 
       const issue = await getIssue.call(this, credentials, owner, repository, issueNumber) as IIssue;

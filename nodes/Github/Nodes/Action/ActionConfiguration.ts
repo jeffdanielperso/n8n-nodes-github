@@ -1,6 +1,5 @@
 import {
   INodeProperties,
-  INodePropertyCollection,
   INodePropertyOptions
 } from "n8n-workflow";
 import { NodeTypes, Property, PropertyDisplay, Resource } from "../../Common/Enums";
@@ -22,11 +21,6 @@ const ActionResourceOptions: INodePropertyOptions[] = [
   }
 ]
 
-const ActionOperationOptions: Array<INodePropertyOptions | INodeProperties | INodePropertyCollection> = [
-  ...ActionIssueOperationOptions,
-  ...ActionProjectOperationOptions
-]
-
 export const ActionElementBase: INodeProperties = {
   displayName: '',
   name: '',
@@ -44,20 +38,11 @@ const ActionConfig: IConfigurationMap = {
     type: NodeTypes.Options,
     options: ActionResourceOptions,
     default: Resource.Issue
-  },
-  [Property.Operation]: {
-    ...ActionElementBase,
-    displayName: PropertyDisplay.Operation,
-    name: Property.Operation,
-    description: ActionPropertyDisplay.OperationDescription,
-    type: NodeTypes.Options,
-    options: ActionOperationOptions,
   }
 }
 
 export const ActionConfiguration: INodeProperties[] = [
   ActionConfig[Property.Resource],
-  ActionConfig[Property.Operation],
   ...ActionIssueConfiguration,
   ...ActionProjectConfiguration
 ]

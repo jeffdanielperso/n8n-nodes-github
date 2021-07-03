@@ -3,7 +3,7 @@ import { YesNoOptions } from "../../Common/Configuration";
 import { NodeTypes, ProjectType, Property, PropertyDisplay, Resource, YesNo } from "../../Common/Enums";
 import { IConfigurationMap } from "../../Common/Interfaces";
 import { ActionElementBase } from "./ActionConfiguration";
-import { ActionProjectOperation, ActionProjectProperty, ActionProjectPropertyDisplay } from "./ActionEnums";
+import { ActionProjectOperation, ActionProjectProperty, ActionProjectPropertyDisplay, ActionPropertyDisplay } from "./ActionEnums";
 
 const ActionProjectTypeOptions: INodePropertyOptions[] = [
   {
@@ -43,7 +43,6 @@ export const ActionProjectOperationOptions: Array<INodePropertyOptions | INodePr
     name: ActionProjectPropertyDisplay.MoveCard,
     value: ActionProjectOperation.MoveCard,
     description: ActionProjectPropertyDisplay.MoveCardDescription,
-    displayOptions: ActionProjectDisplayOptions
   }
 ]
 
@@ -54,6 +53,15 @@ const ActionProjectElementBase: INodeProperties = {
 }
 
 const ActionProjectConfig: IConfigurationMap = {
+  [ActionProjectProperty.Operation]: {
+    ...ActionProjectElementBase,
+    displayName: PropertyDisplay.Operation,
+    name: Property.Operation,
+    description: ActionPropertyDisplay.OperationDescription,
+    type: NodeTypes.Options,
+    options: ActionProjectOperationOptions,
+    default: ActionProjectOperation.MoveCard
+  },
   [ActionProjectProperty.Type]: {
     ...ActionProjectElementBase,
     displayName: PropertyDisplay.Type,
@@ -171,6 +179,7 @@ const ActionProjectConfig: IConfigurationMap = {
 }
 
 export const ActionProjectConfiguration: INodeProperties[] = [
+  ActionProjectConfig[ActionProjectProperty.Operation],
   ActionProjectConfig[ActionProjectProperty.Type],
   ActionProjectConfig[ActionProjectProperty.Owner],
   ActionProjectConfig[ActionProjectProperty.Repository],

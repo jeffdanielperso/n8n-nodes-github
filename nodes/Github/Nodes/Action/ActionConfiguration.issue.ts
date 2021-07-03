@@ -3,7 +3,7 @@ import { CollectionNodeItemName, CollectionNodeItemType, CollectionNodeName } fr
 import { NodeTypes, Property, PropertyDisplay, Resource } from "../../Common/Enums";
 import { IConfigurationMap } from "../../Common/Interfaces";
 import { ActionElementBase } from "./ActionConfiguration";
-import { ActionIssueOperation, ActionIssueProperty, ActionIssuePropertyDisplay } from "./ActionEnums";
+import { ActionIssueOperation, ActionIssueProperty, ActionIssuePropertyDisplay, ActionPropertyDisplay } from "./ActionEnums";
 
 const ActionLabelCollectionOptions: INodePropertyCollection[] = [
   {
@@ -41,19 +41,16 @@ export const ActionIssueOperationOptions: Array<INodePropertyOptions | INodeProp
     name: ActionIssuePropertyDisplay.UpdateLabels,
     value: ActionIssueOperation.UpdateLabels,
     description: ActionIssuePropertyDisplay.UpdateLabelsDescription,
-    displayOptions: ActionIssueDisplayOptions
   },
   {
     name: ActionIssuePropertyDisplay.AddLabels,
     value: ActionIssueOperation.AddLabels,
     description: ActionIssuePropertyDisplay.AddLabelsDescription,
-    displayOptions: ActionIssueDisplayOptions
   },
   {
     name: ActionIssuePropertyDisplay.RemoveLabel,
     value: ActionIssueOperation.RemoveLabel,
     description: ActionIssuePropertyDisplay.RemoveLabelDescription,
-    displayOptions: ActionIssueDisplayOptions
   }
 ]
 
@@ -64,6 +61,15 @@ const ActionIssueElementBase: INodeProperties = {
 }
 
 const ActionIssueConfig: IConfigurationMap = {
+  [ActionIssueProperty.Operation]: {
+    ...ActionIssueElementBase,
+    displayName: PropertyDisplay.Operation,
+    name: Property.Operation,
+    description: ActionPropertyDisplay.OperationDescription,
+    type: NodeTypes.Options,
+    options: ActionIssueOperationOptions,
+    default: ActionIssueOperation.UpdateLabels
+  },
   [ActionIssueProperty.Owner]: {
     ...ActionIssueElementBase,
     displayName: PropertyDisplay.Owner,
@@ -159,6 +165,7 @@ const ActionIssueConfig: IConfigurationMap = {
 }
 
 export const ActionIssueConfiguration: INodeProperties[] = [
+  ActionIssueConfig[ActionIssueProperty.Operation],
   ActionIssueConfig[ActionIssueProperty.Owner],
   ActionIssueConfig[ActionIssueProperty.Repository],
   ActionIssueConfig[ActionIssueProperty.IssueNumber],
