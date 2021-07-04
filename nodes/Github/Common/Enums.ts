@@ -41,6 +41,7 @@ export enum PropertyDisplay {
   ProjectColumnId = 'Column ID',
   ProjectCard = 'Project Card',
   ProjectCardId = 'Card ID',
+  ContentUrl = 'Content URL',
   Name = 'Name',
   Labels = 'Labels',
   Yes = 'Yes',

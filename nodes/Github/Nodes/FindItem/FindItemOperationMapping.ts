@@ -1,8 +1,10 @@
 import { IExecuteFunctions, IHookFunctions } from "n8n-core";
 import { ICredentialDataDecryptedObject } from "n8n-workflow";
 import { Resource } from "../../Common/Enums";
-import { FindItemProperty } from "./FindItemEnums";
-import { operationFindProjectByColumnId, operationFindProjectByProjectId } from "./FindItemOperations";
+import { FindItemIssueOperation } from "./FindItemEnums.issue";
+import { FindItemProjectOperation } from "./FindItemEnums.project";
+import { operationFindIssueByContentUrl, operationFindIssueByOwnerRepoNumber } from "./FindItemOperations.issue";
+import { operationFindProjectByColumnId, operationFindProjectByProjectId } from "./FindItemOperations.project";
 import { IFindItemErrorResponse, IFindItemResponse } from "./FindItemResponse";
 
 interface IOperationMapping {
@@ -19,7 +21,11 @@ interface IResourceOperationMapping {
 
 export const FindItemOperationMapping: IResourceOperationMapping = {
   [Resource.Project]: {
-    [FindItemProperty.ProjectId]: operationFindProjectByProjectId,
-    [FindItemProperty.ColumnId]: operationFindProjectByColumnId,
+    [FindItemProjectOperation.ByProjectId]: operationFindProjectByProjectId,
+    [FindItemProjectOperation.ByColumnId]: operationFindProjectByColumnId,
+  },
+  [Resource.Issue]: {
+    [FindItemIssueOperation.ByContentUrl]: operationFindIssueByContentUrl,
+    [FindItemIssueOperation.ByOwnerRepoNumber]: operationFindIssueByOwnerRepoNumber
   }
 }

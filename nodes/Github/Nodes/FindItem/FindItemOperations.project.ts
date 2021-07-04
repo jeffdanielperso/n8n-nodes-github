@@ -3,9 +3,10 @@ import { ICredentialDataDecryptedObject } from "n8n-workflow";
 import { getRegexMatchOfProjectUrl } from "../ExtractData/ExtractDataActions";
 import { getColumn, getProject } from "../../Project/ProjectRequests";
 import { IFindItemErrorResponse, IFindItemProjectResponse, IFindItemResponse } from "./FindItemResponse";
-import { FindItemProperty, FindItemPropertyDisplay } from "./FindItemEnums";
+import { FindItemPropertyDisplay } from "./FindItemEnums";
 import { prepareErrorResult } from "../../Common/GenericFunctions";
-import { Property } from "../../Common/Enums";
+import { Property, Resource } from "../../Common/Enums";
+import { FindItemProjectProperty, FindItemProjectPropertyDisplay } from "./FindItemEnums.project";
 
 const ErrorGettingProjectId = 'Could not retrieve Project ID';
 const ErrorGettingProject = 'Could not retrieve the Project';
@@ -16,20 +17,20 @@ export async function operationFindProjectByProjectId(
   this: IHookFunctions | IExecuteFunctions,
   credentials: ICredentialDataDecryptedObject,
   itemIndex: number = 0
-): Promise<IFindItemResponse> {
+): Promise<IFindItemProjectResponse | IFindItemErrorResponse> {
   const resultBase: IFindItemResponse = {
     [Property.Resource]: FindItemPropertyDisplay.ProjectDescription,
-    [Property.Operation]: FindItemPropertyDisplay.ByProjectId
+    [Property.Operation]: FindItemProjectPropertyDisplay.ByProjectId
   };
 
-  const projectId = this.getNodeParameter(FindItemProperty.ProjectId, itemIndex) as number;
+  const projectId = this.getNodeParameter(FindItemProjectProperty.ProjectId, itemIndex) as number;
   if (projectId) {
     const project = await getProject.call(this, credentials, projectId);
     if (project) {
       return {
         ...resultBase,
-        project: project
-      } as IFindItemProjectResponse
+        [Resource.Project]: project
+      } as IFindItemProjectResponse;
     }
     return prepareErrorResult(resultBase, ErrorGettingProject);
   }
@@ -43,9 +44,9 @@ export async function operationFindProjectByColumnId(
 ): Promise<IFindItemProjectResponse | IFindItemErrorResponse> {
   const resultBase: IFindItemResponse = {
     [Property.Resource]: FindItemPropertyDisplay.ProjectDescription,
-    [Property.Operation]: FindItemPropertyDisplay.ByColumnId
+    [Property.Operation]: FindItemProjectPropertyDisplay.ByColumnId
   };
-  const columnId = this.getNodeParameter(FindItemProperty.ColumnId, itemIndex) as number;
+  const columnId = this.getNodeParameter(FindItemProjectProperty.ColumnId, itemIndex) as number;
   if (columnId) {
     const column = await getColumn.call(this, credentials, columnId);
     if (column) {
@@ -56,7 +57,7 @@ export async function operationFindProjectByColumnId(
         if (project) {
           return {
             ...resultBase,
-            project: project
+            [Resource.Project]: project
           } as IFindItemProjectResponse;
         }
         return prepareErrorResult(resultBase, ErrorGettingProject);
@@ -64,6 +65,5 @@ export async function operationFindProjectByColumnId(
     }
     return prepareErrorResult(resultBase, ErrorGettingColumn);
   }
-
   return prepareErrorResult(resultBase, ErrorGettingColumnId);
 }
