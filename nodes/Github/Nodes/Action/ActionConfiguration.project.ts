@@ -1,4 +1,4 @@
-import { IDisplayOptions, INodeProperties, INodePropertyCollection, INodePropertyOptions } from "n8n-workflow";
+import { IDisplayOptions, INodeProperties, INodePropertyOptions } from "n8n-workflow";
 import { YesNoOptions } from "../../Common/Configuration";
 import { NodeTypes, ProjectType, Property, PropertyDisplay, Resource, YesNo } from "../../Common/Enums";
 import { IConfigurationMap } from "../../Common/Interfaces";
@@ -37,7 +37,7 @@ const ActionProjectDisplayOptions: IDisplayOptions = {
   }
 }
 
-export const ActionProjectOperationOptions: Array<INodePropertyOptions | INodeProperties | INodePropertyCollection> = [
+export const ActionProjectOperationOptions: INodePropertyOptions[] = [
   {
     name: ActionProjectPropertyDisplay.MoveCard,
     value: ActionProjectOperation.MoveCard,

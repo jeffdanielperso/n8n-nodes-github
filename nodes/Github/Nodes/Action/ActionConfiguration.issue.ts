@@ -35,7 +35,7 @@ const ActionIssueDisplayOptions: IDisplayOptions = {
   }
 }
 
-export const ActionIssueOperationOptions: Array<INodePropertyOptions | INodeProperties | INodePropertyCollection> = [
+export const ActionIssueOperationOptions: INodePropertyOptions[] = [
   {
     name: ActionIssuePropertyDisplay.UpdateLabels,
     value: ActionIssueOperation.UpdateLabels,
