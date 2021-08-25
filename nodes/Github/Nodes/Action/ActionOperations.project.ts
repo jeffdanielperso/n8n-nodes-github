@@ -25,16 +25,11 @@ export async function operationActionProjectMoveCard(
     [Property.Operation]: ActionProjectPropertyDisplay.MoveCard
   }
 
-  let step = 1;
   try {
     const matchingProject = await FindItem.call(this, credentials, projectType, projectName);
-    step = 2;
     if (matchingProject) {
-      step = 3;
       const issueNumber = this.getNodeParameter(ActionProjectProperty.IssueNumber, itemIndex) as number;
-      step = 4;
       const destinationColumnId = this.getNodeParameter(ActionProjectProperty.ColumnId, itemIndex) as number;
-      step = 5;
 
       const response = await moveOrCreateIssueCardInColumn.call(
         this,
@@ -44,7 +39,6 @@ export async function operationActionProjectMoveCard(
         issueNumber,
         destinationColumnId
       );
-      step = 6;
 
       return {
         ...resultBase,
@@ -55,6 +49,6 @@ export async function operationActionProjectMoveCard(
     return prepareErrorResult(resultBase, ErrorMatchingProject);
   }
   catch (error) {
-    return prepareErrorResult(resultBase, `step ${step} - ${error.toString()}`);
+    return prepareErrorResult(resultBase, error.toString());
   }
 }

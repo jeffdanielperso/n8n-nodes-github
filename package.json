@@ -1,6 +1,6 @@
 {
     "name": "n8n-nodes-github",
-    "version": "0.1.32",
+    "version": "0.1.40",
     "description": "Github nodes for n8n",
     "license": "MIT",
     "homepage": "https://n8n.io",
@@ -18,7 +18,8 @@
         "build": "tsc && gulp",
         "tslint": "tslint -p tsconfig.json -c tslint.json",
         "watch": "tsc --watch",
-        "test": "jest"
+        "test": "jest",
+        "package": "rm -rf dist && npm run build && npm publish"
     },
     "files": [
         "dist"

@@ -87,7 +87,7 @@ export function operationFromProjectCard(
   } as IExtractDataBaseResponse;
   const projectCard = this.getNodeParameter(ExtractDataProperty.Object, itemIndex) as IProjectCard;
 
-  if (projectCard) {
+  if (projectCard && projectCard.content_url) {
     const regexProjectResult = getRegexMatchOfProjectUrl(projectCard.project_url);
     const regexColumnResult = getRegexMatchOfColumnUrl(projectCard.column_url);
     const regexContentResult = getRegexMatchOfContentUrl(projectCard.content_url);
