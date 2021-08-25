@@ -25,6 +25,6 @@ export interface IProjectCard extends IGithubMutableEntity {
   ['creator']: ICreator;
   ['archived']: boolean;
   ['column_url']: string;
-  ['content_url']: string;
+  ['content_url']?: string;
   ['project_url']: string;
 }

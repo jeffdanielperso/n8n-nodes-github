@@ -96,8 +96,7 @@ export async function findIssueCardInColumn(
       return
         card &&
         card['content_url'] &&
-        card['content_url'].length &&
-        card['content_url'].split('/')[7] === issueNumber.toString();
+        card['content_url']?.split('/')[7] === issueNumber.toString();
     });
   if (matchingCard) {
     return matchingCard;
