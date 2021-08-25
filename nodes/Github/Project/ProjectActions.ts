@@ -91,7 +91,14 @@ export async function findIssueCardInColumn(
   issueNumber: number
 ): Promise<IProjectCard | undefined> {
   const cards = await getCardsOfColumn.call(this, credentials, columnId) as IProjectCard[];
-  const matchingCard = cards.find(card => card?.content_url?.split('/')[7] === issueNumber.toString());
+  const matchingCard = cards.find(card => 
+    {
+      return
+        card &&
+        card['content_url'] &&
+        card['content_url'].length &&
+        card['content_url'].split('/')[7] === issueNumber.toString();
+    });
   if (matchingCard) {
     return matchingCard;
   }
